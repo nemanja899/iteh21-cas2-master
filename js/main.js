@@ -18,7 +18,7 @@ $('#dodajForm').submit(function(){
     req.done(function(res, textStatus, jqXHR){
         if(res=="Success"){
             alert("Kolokvijum uspešno zakazan");
-            console.log("Dodar kolokvijum");
+            console.log("Dodat kolokvijum");
             location.reload(true);
         }else console.log("Kolokvijum nije dodat "+res);
         console.log(res);
@@ -103,17 +103,23 @@ $('#izmeniForm').submit(function () {
     $inputs.prop('disabled', true);
 
     // kreirati request za UPDATE handler
+    request = $.ajax({
+        url: 'handler/update.php',
+        type:'post',
+        data: serializedData
+        
+    });
 
     request.done(function (response, textStatus, jqXHR) {
 
 
-        if (response === 'Success') {
+        if (response == 'Success') {
             console.log('Kolokvijum je izmenjen');
             location.reload(true);
-            //$('#izmeniForm').reset;
+           // $('#izmeniForm').reset;
         }
-        else console.log('Kolokvijum nije izmenjen ' + response);
-        console.log(response);
+        else {console.log('Kolokvijum nije izmenjen ' + response);
+        console.log(response);}
     });
 
     request.fail(function (jqXHR, textStatus, errorThrown) {
